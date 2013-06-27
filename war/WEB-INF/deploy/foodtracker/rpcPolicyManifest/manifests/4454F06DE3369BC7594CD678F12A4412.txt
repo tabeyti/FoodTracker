@@ -1,0 +1,2 @@
+serviceClass: com.tla.foodtracker.client.shared.RPCInterface
+path: 4D67C7342193D91F90E6F7D2B178EFF1.gwt.rpc
