@@ -11,8 +11,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tla.foodtracker.client.shared.DataManager;
 import com.tla.foodtracker.client.shared.DoubleTextBox;
+import com.tla.foodtracker.client.shared.ExceptionWindow;
 import com.tla.foodtracker.client.shared.Goals;
-import com.tla.foodtracker.shared.ExceptionWindow;
 import com.tla.foodtracker.shared.Measurement;
 
 public class EditGoalsDialog extends DialogBox

@@ -21,3 +21,4 @@ public class LoadingPanel extends PopupPanel
 	} // end LoadinPanel()
 
 } // end class LoadingPanel
+//http://comments.gmane.org/gmane.org.google.gwt/60409

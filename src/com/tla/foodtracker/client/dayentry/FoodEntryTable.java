@@ -16,12 +16,12 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.tla.foodtracker.client.shared.CustomCheckBox;
 import com.tla.foodtracker.client.shared.DoubleTextBox;
+import com.tla.foodtracker.client.shared.ExceptionWindow;
 import com.tla.foodtracker.client.shared.Food;
 import com.tla.foodtracker.client.shared.FoodEntries;
 import com.tla.foodtracker.client.shared.FoodEntry;
 import com.tla.foodtracker.client.shared.FoodList;
 import com.tla.foodtracker.client.shared.FoodListBox;
-import com.tla.foodtracker.shared.ExceptionWindow;
 import com.tla.foodtracker.shared.Measurement;
 
 public class FoodEntryTable extends DockLayoutPanel implements BlurHandler, ChangeHandler
@@ -198,9 +198,7 @@ public class FoodEntryTable extends DockLayoutPanel implements BlurHandler, Chan
 			{
 				Cell cell = table.getCellForEvent(event);
 				if (null != cell)
-				{
 					removeRow(cell.getRowIndex());
-				}
 			}
 		});
 		customRowCheckBox.addClickHandler(new ClickHandler()
@@ -281,7 +279,7 @@ public class FoodEntryTable extends DockLayoutPanel implements BlurHandler, Chan
 			{
 				Cell cell = table.getCellForEvent(event);
 				if (null != cell)
-					removeRow(cell.getCellIndex());
+					removeRow(cell.getRowIndex());
 			}
 		});
 		customRowCheckBox.addClickHandler(new ClickHandler()

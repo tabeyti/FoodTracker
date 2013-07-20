@@ -1,6 +1,7 @@
 package com.tla.foodtracker.client.shared;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class FoodList extends ArrayList<Food>
@@ -22,5 +23,15 @@ public class FoodList extends ArrayList<Food>
 		return null;
 		
 	} // return getFood()
+	
+	
+	/**
+	 * Sorts the food list based on the comparitor implementation of the food
+	 */
+	public void sort()
+	{
+		Collections.sort(this);
+		
+	} // end sort()
 
-}
+} // end class FoodList

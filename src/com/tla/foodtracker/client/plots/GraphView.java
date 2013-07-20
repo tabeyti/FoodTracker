@@ -7,15 +7,15 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tla.foodtracker.client.shared.NumberSpinner;
 import com.tla.foodtracker.shared.Measurement;
 
-public class GraphView extends DockLayoutPanel implements ValueChangeHandler
+public class GraphView extends VerticalPanel implements ValueChangeHandler
 {
 	private Graph graph;
 	private MetricsPanel metricsPanel;
@@ -28,7 +28,7 @@ public class GraphView extends DockLayoutPanel implements ValueChangeHandler
 	 */
 	public GraphView()
 	{
-		super(Unit.PX);
+		//super(Unit.PX);
 		
 		graph = new Graph();
 		
@@ -66,14 +66,18 @@ public class GraphView extends DockLayoutPanel implements ValueChangeHandler
 		HorizontalPanel bottomPanel = new HorizontalPanel();
 		bottomPanel.add(buttonTable);
 		bottomPanel.add(rangePanel);
+		bottomPanel.setHeight("20%");
 		
 		// creates main display panel hosting graph and metrics
 		HorizontalPanel bodyPanel = new HorizontalPanel();
 		bodyPanel.add(graph);
 		bodyPanel.add(metricsPanel);
 		
-		this.addSouth(bottomPanel,  250);
+		
+		
+		//this.addSouth(bottomPanel,  250);
 		this.add(bodyPanel);
+		this.add(bottomPanel);
 		
 		rangeSpinner.addChangeHandler(new ChangeHandler()
 		{

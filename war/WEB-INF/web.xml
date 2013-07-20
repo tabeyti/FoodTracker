@@ -12,7 +12,7 @@
 	</servlet>
 	<servlet-mapping>
 	  <servlet-name>ServerDataManager</servlet-name>
-	  <url-pattern>foodtracker/message</url-pattern>
+	  <url-pattern>/foodtracker/message</url-pattern>
 	</servlet-mapping>
   
   <!-- Default page to serve -->

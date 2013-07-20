@@ -8,14 +8,19 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTMLTable;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.tla.foodtracker.client.IView;
 import com.tla.foodtracker.client.shared.DataManager;
+import com.tla.foodtracker.client.shared.ExceptionWindow;
 import com.tla.foodtracker.client.shared.FoodEntries;
 import com.tla.foodtracker.client.shared.FoodEntry;
 import com.tla.foodtracker.client.shared.FoodList;
@@ -24,7 +29,6 @@ import com.tla.foodtracker.client.shared.LoadingPanel;
 import com.tla.foodtracker.client.shared.LogEntry;
 import com.tla.foodtracker.client.shared.Workout;
 import com.tla.foodtracker.shared.Destination;
-import com.tla.foodtracker.shared.ExceptionWindow;
 
 
 public class DayEntryPanel extends DockLayoutPanel implements IView
@@ -38,7 +42,7 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 	private static FoodEntryTable table;
 	private static DayBar dayBar;
 	private static LoadingPanel loadingPanel;
-	private static ListBox workoutBox;
+	private static ListBox workoutListBox;
 	
 	private static Button addButton;
 	private static Button saveButton;
@@ -91,17 +95,17 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 	    dayBar.setDay(dayFormat.format(new Date()));
 	    
 	    // populates workout list box
-	    workoutBox = new ListBox();
-	    workoutBox.setStyleName("dropDownBox");
+	    workoutListBox = new ListBox();
+	    workoutListBox.setStyleName("dropDownBox");
 	    for (Workout wo : Workout.values())
-	    	workoutBox.addItem(wo.toString());	    
+	    	workoutListBox.addItem(wo.toString());
 	    
 	    topPanel.add(leftArrowDateButton);
 	    topPanel.add(dateBox);
 	    topPanel.add(rightArrowDateButton);
 //	    topPanel.add(dayOfWeekLabel);
 	    topPanel.add(dayBar);
-	    topPanel.add(workoutBox);
+	    topPanel.add(workoutListBox);
 
 	    table = new  FoodEntryTable(daySummaryPanel);
 	    table.setWidth("100%");
@@ -119,9 +123,12 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		DockLayoutPanel bottomPanel = new DockLayoutPanel(Unit.PX);
 		bottomPanel.addNorth(buttonPanel, 40);
 		bottomPanel.add(statsPanel);
+		bottomPanel.setStyleName("shadow");
+		
+		int bottomPanelHeight = Window.getClientHeight() / 3;
 		
 		this.addNorth(topPanel, 30);
-		this.addSouth(bottomPanel, 500);		
+		this.addSouth(bottomPanel, bottomPanelHeight);		
 		this.add(table);
 		
 		// sets up event listeners
@@ -324,7 +331,7 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 				table.addFoodEntry(fe);
 			
 			// set workout
-			workoutBox.setSelectedIndex(le.getWorkout().ordinal());
+			workoutListBox.setSelectedIndex(le.getWorkout().ordinal());
 			
 		}
 		
@@ -349,7 +356,7 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		le.setFoodEntries(fes);
 		
 		// pulls workout data
-		le.setWorkout(Workout.findByValue(workoutBox.getItemText(workoutBox.getSelectedIndex())));
+		le.setWorkout(Workout.findByValue(workoutListBox.getItemText(workoutListBox.getSelectedIndex())));
 		
 		// saves log entry
 		try 

@@ -3,6 +3,7 @@ package com.tla.foodtracker.client.foodlist;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -13,10 +14,10 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.tla.foodtracker.client.IView;
 import com.tla.foodtracker.client.shared.DataManager;
 import com.tla.foodtracker.client.shared.DoubleTextBox;
+import com.tla.foodtracker.client.shared.ExceptionWindow;
 import com.tla.foodtracker.client.shared.Food;
 import com.tla.foodtracker.client.shared.FoodList;
 import com.tla.foodtracker.shared.Destination;
-import com.tla.foodtracker.shared.ExceptionWindow;
 import com.tla.foodtracker.shared.Measurement;
 
 public class FoodListPanel extends DockLayoutPanel implements IView
@@ -63,8 +64,10 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 		bottomPanel.add(addEntryButton);
 		bottomPanel.add(saveButton);
 		
+		int bottomPanelHeight = Window.getClientHeight() / 3;
+		
 		this.addNorth(tableHeader, 30);
-		this.addSouth(bottomPanel, 75);
+		this.addSouth(bottomPanel, bottomPanelHeight);
 		this.add(tablePanel);
 		
 		
@@ -292,6 +295,7 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 		// saves log entry
 		try 
 		{
+			fl.sort();
 			DataManager.setFoodList(fl);
 			activeFoodList = fl;
 		} 

@@ -76,7 +76,7 @@ h1 {
 }
 .dropDownBox
 {
-	margin-left: 20px;
+/* 	margin-left: 20px; */
 	border: 0px solid silver;
 	background-color: lightGray;
 	width: 100%;
@@ -186,4 +186,11 @@ h1 {
 .goalsPanelEditButton
 {
 	float: right;
+}
+
+
+/** General/Test **/
+.shadow
+{
+	box-shadow: inset 3px 3px 5px 5px #000000;
 }
