@@ -35,5 +35,5 @@ ISSUES
 - Day Entry graph doesn't show up if the monitor size is too small yet Foodlistpanel doesn't have an issue.
 - Food unit type doesn't update when you choose a new food using the drop down.
 - clipping of inner panel contents day entry table
-
+- wonky graph, weird and it must be fixed! (points are all over the place)
 
