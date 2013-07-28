@@ -1,5 +1,6 @@
 package com.tla.foodtracker.client.plots;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.Vector;
 
@@ -35,6 +36,7 @@ public class Graph extends VerticalPanel
 	// tracks start and end of log ranges
 	private static String startDate = "01-01-1969";
 	private static String endDate = "01-01-1969";
+	private static int logCount = 0;
 	
 	private static int width = 1000;
 	private static int height = 650;
@@ -199,7 +201,7 @@ public class Graph extends VerticalPanel
 		currentLogEntries = new Vector<LogEntry>();
 		
 		Date date = new Date();
-		date.setDate(date.getDate() - span + 1); // moves date back to the beginning of the range
+		date.setDate(date.getDate() - span); // moves date back to the beginning of the range
 		startDate = dateFormat.format(date); // saves start date
 		
 		for (int index = 0; index < span; ++index)
@@ -210,6 +212,7 @@ public class Graph extends VerticalPanel
 		}
 		date.setDate(date.getDate() - 1);
 		endDate = dateFormat.format(date); // saves the end date
+		logCount = span;
 		
 	} // end requestLogEntries()
 	
@@ -224,8 +227,12 @@ public class Graph extends VerticalPanel
 		currentLogEntries.add(le);
 		
 		// if we have received all the logs, plot the data
-		if (endDate.equals(le.getDate()) && goals != null) // ensures goals were pulled in before moving forward
+		if (logCount == currentLogEntries.size() && goals != null) // ensures goals were pulled in before moving forward
 		{
+			// sorts the log entries by date
+			//sortLogEntries();
+			Collections.sort(currentLogEntries);
+			
 			// update the metrics display
 			MetricsPanel.updateMetrics(currentLogEntries);
 			
@@ -289,7 +296,22 @@ public class Graph extends VerticalPanel
 		requestLogEntries(RANGE);
 		
 	} // loadGoals()
+	
+	
+	/**
+	 * Sorts the list of log entries by date.
+	 */
+	private static void sortLogEntries()
+	{
+		
+		
+	} // sortLogEntries
+	
+	
 
+	/**
+	 * GETTERS AND SETTERS
+	 */
 
 	
 	public int getRange()

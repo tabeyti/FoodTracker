@@ -24,6 +24,7 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 {
 	private static FlexTable table;
 	private static FlexTable tableHeader;
+	private ScrollPanel tablePanel;
 	private Button addEntryButton;
 	private Button saveButton;
 	private static FoodList activeFoodList = new FoodList();
@@ -52,7 +53,7 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 		table.setStyleName("table");
 		
 		// table panel
-		ScrollPanel tablePanel = new ScrollPanel();
+		tablePanel = new ScrollPanel();
 		tablePanel.setStyleName("tableBackground");
 		tablePanel.setWidth("100%");
 		tablePanel.add(table);
@@ -78,6 +79,7 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 			public void onClick(ClickEvent event) 
 			{
 				addFood(new Food());
+				tablePanel.scrollToBottom();
 			}
 		});
 		saveButton.addClickHandler(new ClickHandler()

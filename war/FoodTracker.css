@@ -49,9 +49,11 @@ h1 {
 {
 	background-color: lightBlue;
 }
-.tabPanel .gwt-TabLayoutPanelContent
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabInner 
 {
-	overflow: scroll;
+	font-size: 13px;
+	color: rgb (120,120,120);
+  	font-weight: normal;
 }
 .tab
 {
@@ -83,7 +85,7 @@ h1 {
 }
 .table
 {
-	border: 1px solid silver;
+/* 	border: 1px solid silver; */
 	width: 100%;
 }
 .tableRow
@@ -115,6 +117,7 @@ h1 {
 .tableBackground
 {
 	background-color: silver;
+	box-shadow: inset -2px 2px 12px 3px rgb(150, 150, 150);
 }
 
 .subTable
@@ -189,8 +192,9 @@ h1 {
 }
 
 
-/** General/Test **/
-/* .shadow */
-/* { */
-/* 	box-shadow: inset 3px 3px 5px 5px #000000; */
-/* } */
+/ ** general and test **/
+.boxShadow
+{
+/* 	box-shadow: -2px 2px 12px 3px rgb(150, 150, 150); */
+	box-shadow: inset 5px 5px 10px black;
+}

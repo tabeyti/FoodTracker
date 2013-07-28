@@ -67,6 +67,7 @@ public class MetricsPanel extends VerticalPanel
 		for (Measurement msm : Measurement.values())
 		{
 			table.setText(row, 1, Double.toString(totals[row - 1]/les.size()));
+			row++;
 		}
 		
 	} // end updateMetrics()

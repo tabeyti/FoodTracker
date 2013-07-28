@@ -48,9 +48,9 @@ public class FoodTracker implements EntryPoint
 		tabPanel.add(graphPanel, "Plots");
 		
 		HorizontalPanel leftBar = new HorizontalPanel();
-		leftBar.setStyleName("pageColumns");
+//		leftBar.setStyleName("pageColumns");
 		HorizontalPanel rightBar = new HorizontalPanel();
-		rightBar.setStyleName("pageColumns");
+//		rightBar.setStyleName("pageColumns");
 		
 		mainPanel.addWest(leftBar, 100);
 		mainPanel.addEast(rightBar, 100);

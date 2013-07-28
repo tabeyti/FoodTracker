@@ -103,12 +103,12 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 	    topPanel.add(leftArrowDateButton);
 	    topPanel.add(dateBox);
 	    topPanel.add(rightArrowDateButton);
-//	    topPanel.add(dayOfWeekLabel);
 	    topPanel.add(dayBar);
 	    topPanel.add(workoutListBox);
 
 	    table = new  FoodEntryTable(daySummaryPanel);
 	    table.setWidth("100%");
+	    table.setStyleName("shadow");
 	    
 	    // sets up control buttons
 	    HorizontalPanel buttonPanel = new HorizontalPanel();
@@ -123,7 +123,6 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		DockLayoutPanel bottomPanel = new DockLayoutPanel(Unit.PX);
 		bottomPanel.addNorth(buttonPanel, 40);
 		bottomPanel.add(statsPanel);
-		bottomPanel.setStyleName("shadow");
 		
 		int bottomPanelHeight = Window.getClientHeight() / 3;
 		

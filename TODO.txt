@@ -1,16 +1,14 @@
 GENERAL
 - Make scrollbar on the srollpane more visible
 - Add refresh on graph when tab is selected
+- Login feature
 
 DAY ENTRY
 - Make DayBar labels clickable (may be too hard to integrate as it would have to be of the same entity as the daybox)
-- Add units tooltip to a row
-	- Added remove and adding functionality, need to add changes to the fields functionality.
 
 FOOD LIST
 - Move up bottom bar and/or make it look pretty 
 	- remove fixed bottom bar maybe
-- when adding a food, have scroll pane move all the way down automatically.
 - Need to have hashed lookup of food instead of sequential string search.
 
 EXTRA
@@ -33,7 +31,5 @@ LEFT OFF AT
 
 ISSUES
 - Day Entry graph doesn't show up if the monitor size is too small yet Foodlistpanel doesn't have an issue.
-- Food unit type doesn't update when you choose a new food using the drop down.
 - clipping of inner panel contents day entry table
-- wonky graph, weird and it must be fixed! (points are all over the place)
 
