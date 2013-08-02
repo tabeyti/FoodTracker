@@ -20,7 +20,8 @@ GRAPH
 - Need to have graph resize, OR, have the bottom bar resize.  Both can't be static.
 - Add a range selection feature on any range entered in for dates (range end doesn't have to be today's date)
 - Fix issue of date range greater than or equal to 10 fucks up (date values show less than 10).
-	- May need to shrink the font size since i the issue may stem from too many strings on one line.
+- Add pie chart for macros
+- Add workout bar graph overlayed on the line chart
 
 
 
