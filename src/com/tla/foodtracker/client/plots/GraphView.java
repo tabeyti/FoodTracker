@@ -2,24 +2,23 @@ package com.tla.foodtracker.client.plots;
 
 import java.util.ArrayList;
 
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tla.foodtracker.client.shared.NumberSpinner;
 import com.tla.foodtracker.shared.Measurement;
 
-public class GraphView extends VerticalPanel implements ValueChangeHandler
+public class GraphView extends VerticalPanel
 {
 	private Graph graph;
 	private MetricsPanel metricsPanel;
 	private NumberSpinner rangeSpinner;
+	private ListBox measurementBox;
 	private ArrayList<RadioButton> selectionButtons = new ArrayList<RadioButton>();	
 	
 	
@@ -37,26 +36,26 @@ public class GraphView extends VerticalPanel implements ValueChangeHandler
 		FlexTable buttonTable = new FlexTable();
 		int col = 0;
 		int row = 0;
+		
+		// creates list box for all displayable measurements
+		measurementBox = new ListBox();
+		measurementBox.setStyleName("dropDownBox");
 		for (Measurement msm : Measurement.values())
-		{
-			RadioButton rb = new RadioButton("selectionGroup", msm.toString());
-			selectionButtons.add(rb);
-			buttonTable.setWidget(row, col++, rb);
-			if (col == 1)
-				buttonTable.setWidget(row++, col--, rb);
-			
-			// adds change listener to the radio button
-			rb.addValueChangeHandler(GraphView.this);
-		}
+			measurementBox.addItem(msm.toString());
+		
+		Label measurementLabel = new Label("Measurement");
+		measurementLabel.setStyleName("sectionTitle");
+		buttonTable.setWidget(0,  0,  measurementLabel);
+		buttonTable.setWidget(0,  1,  measurementBox);
 		
 		// sets up metrics panel
 		metricsPanel = new MetricsPanel();
+		metricsPanel.setStyleName("metricsPanel");
 		
 		HorizontalPanel rangePanel = new HorizontalPanel();
 		rangePanel.setSpacing(5);
-		rangeSpinner = new NumberSpinner();
+		rangeSpinner = new NumberSpinner(graph.getRange(), 2, 10);
 		rangeSpinner.setEnabled(false);
-		rangeSpinner.setValue(graph.getRange());
 		Label rangeLabel = new Label("Range");
 		rangeLabel.setStyleName("sectionTitle");
 		rangePanel.add(rangeLabel);
@@ -72,9 +71,7 @@ public class GraphView extends VerticalPanel implements ValueChangeHandler
 		HorizontalPanel bodyPanel = new HorizontalPanel();
 		bodyPanel.add(graph);
 		bodyPanel.add(metricsPanel);
-		
-		
-		
+
 		//this.addSouth(bottomPanel,  250);
 		this.add(bodyPanel);
 		this.add(bottomPanel);
@@ -85,24 +82,20 @@ public class GraphView extends VerticalPanel implements ValueChangeHandler
 			public void onChange(ChangeEvent event)
 			{
 				graph.setRange(rangeSpinner.getValue());
-				graph.plotMeasurement(Measurement.findEnum(getSelection()));
+				graph.plotMeasurement(Measurement.findEnum(measurementBox.getValue(measurementBox.getSelectedIndex())));
 			}
 		});
-		
-		// sets default view
-//		selectionButtons.get(0).setValue(true);
-//		graph.plotMeasurement(Measurement.findEnum(getSelection()));
+		measurementBox.addChangeHandler(new ChangeHandler()
+		{
+			@Override
+			public void onChange(ChangeEvent event)
+			{
+				rangeSpinner.setEnabled(true);
+				graph.plotMeasurement(Measurement.findEnum(measurementBox.getValue(measurementBox.getSelectedIndex())));				
+			}	
+		});
 		
 	} // end  GraphView()
-
-	
-	@Override
-	public void onValueChange(ValueChangeEvent event)
-	{
-		rangeSpinner.setEnabled(true);
-		graph.plotMeasurement(Measurement.findEnum(getSelection()));
-			
-	} // end onValueChange()
 	
 	
 	private String getSelection()

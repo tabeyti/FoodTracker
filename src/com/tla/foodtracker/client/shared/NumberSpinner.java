@@ -25,12 +25,24 @@ public class NumberSpinner extends Composite implements HasChangeHandlers
     private IntegerBox integerBox;
     private Button upButton;
     private Button downButton;
+    
+    private int minValue = 0;
+    private int maxValue = -1;
 
     public NumberSpinner() {
         this(1);
     }
+    
+    public NumberSpinner(int defaultValue)
+    {
+    	this(defaultValue, 0, -1);
+    }
 
-    public NumberSpinner(int defaultValue) {
+    public NumberSpinner(int defaultValue, int minVal, int maxVal) {
+    	
+    	minValue = minVal;
+    	maxValue = maxVal;
+    	
         AbsolutePanel absolutePanel = new AbsolutePanel();
         initWidget(absolutePanel);
         absolutePanel.setSize("55px", "23px");
@@ -45,6 +57,8 @@ public class NumberSpinner extends Composite implements HasChangeHandlers
         {
             public void onClick(ClickEvent event) 
             {
+            	if (getValue() == maxValue)
+            		return;
                 setValue(getValue() + RATE);
                 fireChange();
             }
@@ -59,7 +73,7 @@ public class NumberSpinner extends Composite implements HasChangeHandlers
         {
             public void onClick(ClickEvent event) 
             {
-                if (getValue() == 0)
+                if (getValue() == minValue)
                     return;
                 setValue(getValue() - RATE);
                 fireChange();

@@ -28,5 +28,27 @@ public enum Measurement
 		
 		return null;
 	}
+	
+	
+	/**
+	 * Returns the unit representation of the passed in measurement.
+	 * @param msm
+	 * @return
+	 */
+	public static Unit getUnit(Measurement msm)
+	{
+		switch (msm)
+		{
+			case CALORIES:
+				return Unit.CALORIE;
+			case PROTEIN:
+			case CARBOHYDRATES:
+			case FATS:
+				return Unit.GRAM;
+			default:
+				return Unit.UNIT;
+		}		
+		
+	} // end getUnit()
 
 } // end enum Measurement

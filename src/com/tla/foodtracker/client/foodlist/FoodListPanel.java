@@ -179,7 +179,11 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 		});
 		table.setWidget(row, col, removeButton);
 		
+		// set style
 		table.getRowFormatter().addStyleName(row, "tableRow");
+		
+		// apply focus to the row
+		name.setFocus(true);
 		
 	} // end addFood()
 	

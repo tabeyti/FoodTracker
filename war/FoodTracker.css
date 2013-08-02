@@ -45,9 +45,48 @@ h1 {
 
 
 /** Main page styles **/
+.mainPanel
+{
+	background-color: #f1eeff;
+}
+
+
 .pageColumns
 {
-	background-color: lightBlue;
+	background-color: none;
+}
+
+/** TabLayoutPanel style overrides **/
+.gwt-TabLayoutPanelContentContainer
+{ 
+	border: none !important; 
+	box-shadow: 5px 5px 5px #a6a3b9; 
+}
+.gwt-TabLayoutPanelContent
+{
+	border: none !important;
+	background-color: white;
+	box-shadow: 5px 5px 5px #a6a3b9; 
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs
+{
+/* 	-moz-box-shadow: 5px 5px 5px #a6a3b9; */
+/* 	-webkit-box-shadow: 5px 5px 5px #a6a3b9; */
+/* 	box-shadow: 5px 5px 5px #a6a3b9; */
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab
+{
+	-moz-box-shadow: 5px 5px 5px #a6a3b9;
+	-webkit-box-shadow: 5px 5px 5px #a6a3b9;
+	box-shadow: 5px 5px 5px #a6a3b9;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab
+{
+	background-color: lightBlue !important;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected
+{
+	background-color: white !important;
 }
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelTabInner 
 {
@@ -122,9 +161,16 @@ h1 {
 
 .subTable
 {
+	margin-top: 5px;
 	padding: 5px;
 	border-collapse: collapse;
 	border: 1px solid silver;
+	background-color: white;
+	
+	-moz-box-shadow: 5px 5px 5px #a6a3b9;
+	-webkit-box-shadow: 5px 5px 5px #a6a3b9;
+	box-shadow: 5px 5px 5px #a6a3b9;
+
 }
 .subTableRow
 {
@@ -149,11 +195,6 @@ h1 {
 }
 
 
-.temp
-{
-	border: 1px solid black;
-}
-
 /** Day Bar **/
 .dayBar
 {
@@ -166,21 +207,30 @@ h1 {
 .dayBarSelectedDay
 {
 	font-weight: bold;
-	color: red;
+	
+	color: #686868;
+	background-color: #e4deff;
+/* 	border: 1px solid silver; */
+	text-align:center;
+	-moz-box-shadow: inset 2px 2px 5px #a6a3b9;
+	-webkit-box-shadow: inset 2px 2px 5px #a6a3b9;
+	box-shadow: inset 2px 2px 2px #a6a3b9;
 }
 .dayBarUnselectedDay
 {
 	font-weight: bold;
 	color: darkGray;
+	text-align:center;
 }
 
 
 /** Day Entry Panel **/
-
-
 .statsPanel
 {
-/* 	margin-top: 5px;	 */
+/* 	-moz-box-shadow: inset -2px 2px 12px 3px rgb(150, 150, 150); */
+/* 	-webkit-box-shadow: inset -2px 2px 12px 3px rgb(150, 150, 150); */
+/* 	box-shadow: inset -2px 2px 12px 3px rgb(150, 150, 150); */
+/* 	background-color: lightGrey; */
 }
 .statsPanelItem
 {
@@ -189,6 +239,12 @@ h1 {
 .goalsPanelEditButton
 {
 	float: right;
+}
+
+/** GraphView Panel **/
+.metricsPanel
+{
+	padding-left: 10px;	
 }
 
 

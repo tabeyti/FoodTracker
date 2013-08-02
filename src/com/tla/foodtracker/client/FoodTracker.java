@@ -31,15 +31,17 @@ public class FoodTracker implements EntryPoint
 	public void onModuleLoad() 
 	{
 		mainPanel = new DockLayoutPanel(Unit.PX);
+		mainPanel.setStyleName("mainPanel");
 		
 		// individual views
 		dayEntryPanel = new DayEntryPanel();
-		dayEntryPanel.setWidth("100%");
+//		dayEntryPanel.setWidth("100%");
 		dayEntryPanel.setStyleName("tab");
 		foodListPanel = new FoodListPanel();
-		foodListPanel.setWidth("100%");
+//		foodListPanel.setWidth("100%");
 		foodListPanel.setStyleName("tab");
 		graphPanel = new GraphView();
+		graphPanel.setWidth("100%");
 		graphPanel.setStyleName("tab");
 		
 		tabPanel = new TabLayoutPanel(30, Unit.PX);
@@ -47,13 +49,13 @@ public class FoodTracker implements EntryPoint
 		tabPanel.add(foodListPanel, "Food List");
 		tabPanel.add(graphPanel, "Plots");
 		
-		HorizontalPanel leftBar = new HorizontalPanel();
+//		HorizontalPanel leftBar = new HorizontalPanel();
 //		leftBar.setStyleName("pageColumns");
-		HorizontalPanel rightBar = new HorizontalPanel();
+//		HorizontalPanel rightBar = new HorizontalPanel();
 //		rightBar.setStyleName("pageColumns");
 		
-		mainPanel.addWest(leftBar, 100);
-		mainPanel.addEast(rightBar, 100);
+//		mainPanel.addWest(leftBar, 100);
+//		mainPanel.addEast(rightBar, 100);
 		mainPanel.addNorth(new VerticalPanel(),  50);
 		mainPanel.add(tabPanel);
 				

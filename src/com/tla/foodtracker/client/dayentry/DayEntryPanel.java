@@ -67,6 +67,7 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		HorizontalPanel statsPanel = new HorizontalPanel();
 		statsPanel.setSpacing(10);
 		statsPanel.setStyleName("statsPanel");
+//		statsPanel.setWidth("100%");
 		daySummaryPanel = new DaySummaryPanel();
 		daySummaryPanel.setStyleName("statsPanelItem");
 		goalsPanel = new GoalsPanel();

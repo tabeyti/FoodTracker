@@ -28,11 +28,7 @@ public class GoalsPanel extends VerticalPanel
 		
 		// initializes table with titles and default values
 		table = new FlexTable();
-		table.setStyleName("subTable");
-			
-
-		
-		
+		table.setStyleName("subTable");		
 		table.setWidth("100%");
 		
 		table.setText(0, 0, "Goals");

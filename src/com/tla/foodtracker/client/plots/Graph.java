@@ -23,6 +23,11 @@ import com.tla.foodtracker.shared.Measurement;
 
 public class Graph extends VerticalPanel
 {
+	/**
+	 * May need to nest options (vAxis.titleFont.fontStyle would require three options that would need be created)
+	 */
+	
+	
 	private static Vector<LogEntry> currentLogEntries = new Vector<LogEntry>(); // stores pulled in logs
 	private static DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM-dd-yyyy");
 	private static Measurement displayChoice = null;
@@ -74,7 +79,7 @@ public class Graph extends VerticalPanel
 	    data = DataTable.create(); 
 	    data.addColumn(ColumnType.STRING, "X");
 	    data.addColumn(ColumnType.NUMBER, "Chanel 1");
-	    setOptions();
+	    setOptions("Plot", "Units");
         chart = new LineChart(data, currentOptions);
 	
 	    Label status = new Label();
@@ -89,28 +94,56 @@ public class Graph extends VerticalPanel
 	/**
 	 * Returns the formatting options for the graph axis
 	 */
-	public static void setOptions()
+	public static void setOptions(String title, String yAxisTitle)
 	{
+		String axisFontSize = "11";
+		
 		// set up graph base
 		currentOptions = Options.create();
 		currentOptions.setHeight(height);
-		currentOptions.setTitle("Plot");
+		currentOptions.setTitle(title);
 		currentOptions.setWidth(width);
 		currentOptions.setInterpolateNulls(true);
+		Options backgroundColor = Options.create();
+		backgroundColor.set("strokeWidth", "1");
+		currentOptions.set("backgroundColor",  backgroundColor);
 	    
-	    // set axis properties
+		Options chartArea = Options.create();
+		chartArea.set("left", "115");
+		chartArea.set("top", "75");
+		chartArea.set("width", "75%");
+		chartArea.set("height", "75%");
+		currentOptions.set("chartArea", chartArea);
+		
+	    // set y axis properties
 		HorizontalAxisOptions y = HorizontalAxisOptions.create();
-		y.setTitle("Potatos");
-		y.set("vAxis.gridlines",  "count: 10");
+		y.setTitle(yAxisTitle);
+		Options textStyle = Options.create();
+		textStyle.set("fontSize",  "10");
+		y.set("textStyle", textStyle);
+		Options gridLines = Options.create();
+		gridLines.set("count", "10");
+		y.set("gridlines", gridLines);
+		Options titleTextStyle = Options.create();
+		titleTextStyle.set("color", "DarkBlue");
+		titleTextStyle.set("italic",  "false");
+		titleTextStyle.set("bold",  "true");
+		y.set("titleTextStyle",  titleTextStyle);
 		
-		
-	    AxisOptions yAxis = AxisOptions.create();
-	    yAxis.setTitle("Units");
-	    yAxis.set("vAxis.gridlines.count",  "10");
+		// set x axis properties
+	    AxisOptions x = AxisOptions.create();
+	    x.setTitle("Date");
+	    textStyle = Options.create();
+		textStyle.set("fontSize",  axisFontSize);
+		x.set("textStyle", textStyle);
+		titleTextStyle = Options.create();
+		titleTextStyle.set("color", "DarkBlue");
+		titleTextStyle.set("italic",  "false");
+		titleTextStyle.set("bold",  "true");
+		x.set("titleTextStyle",  titleTextStyle);
+	    
 	    currentOptions.setVAxisOptions(y);
-	    AxisOptions xAxis = AxisOptions.create();
-	    xAxis.setTitle("Date");
-	    currentOptions.setHAxisOptions(xAxis);
+	    currentOptions.setHAxisOptions(x);
 	    
 	} // end getXAxisOptions()
 	
@@ -237,7 +270,7 @@ public class Graph extends VerticalPanel
 			MetricsPanel.updateMetrics(currentLogEntries);
 			
 			// sets the basic graph attributes
-			setOptions();
+			setOptions(displayChoice.toString(), Measurement.getUnit(displayChoice).toString());
 			
 			// select which view to plot
 			plot();
