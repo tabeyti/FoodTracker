@@ -31,7 +31,7 @@ public class MetricsPanel extends VerticalPanel
 		averagesTable = new FlexTable();
 		averagesTable.setStyleName("subTable");
 		averagesTable.setWidth(tableWidth);
-		averagesTable.setText(0, 0, "Averages");
+		averagesTable.setText(0, 0, "Measurement Averages");
 		averagesTable.setText(0, 1, "");
 		averagesTable.getRowFormatter().addStyleName(0,  "subTableHeader");
 						

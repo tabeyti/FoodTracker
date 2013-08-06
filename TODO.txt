@@ -22,6 +22,7 @@ GRAPH
 - Fix issue of date range greater than or equal to 10 fucks up (date values show less than 10).
 - Add pie chart for macros
 - Add workout bar graph overlayed on the line chart
+- Need scrolling support
 
 
 

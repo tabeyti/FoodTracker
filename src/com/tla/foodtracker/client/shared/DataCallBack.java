@@ -1,12 +1,11 @@
 package com.tla.foodtracker.client.shared;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.tla.foodtracker.client.dayentry.DayEntryPanel;
 import com.tla.foodtracker.client.foodlist.FoodListPanel;
+import com.tla.foodtracker.client.plots.GraphView;
 import com.tla.foodtracker.shared.Destination;
 import com.tla.foodtracker.shared.FileType;
-import com.tla.foodtracker.client.plots.Graph;
 
 
 public class DataCallBack implements AsyncCallback<Data>
@@ -62,7 +61,7 @@ public class DataCallBack implements AsyncCallback<Data>
 							DayEntryPanel.loadLogEntry(le);
 							break;
 						case PLOT_LINE:
-							Graph.loadLogEntry(le);
+							GraphView.loadLogEntry(le);
 							break;
 					}
 					break;
@@ -98,7 +97,7 @@ public class DataCallBack implements AsyncCallback<Data>
 							DayEntryPanel.loadGoals(goals);
 							break;
 						case PLOT_LINE:
-							Graph.loadGoals(goals);
+							GraphView.loadGoals(goals);
 							break;
 						default:
 							break;
