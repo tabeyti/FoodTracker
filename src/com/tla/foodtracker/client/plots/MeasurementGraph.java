@@ -96,9 +96,10 @@ public class MeasurementGraph extends VerticalPanel
 		currentOptions.setTitle(title);
 		currentOptions.setWidth(width);
 		currentOptions.setInterpolateNulls(true);
-//		Options backgroundColor = ComboChart.createComboOptions();
-//		backgroundColor.set("strokeWidth", "1");
-//		currentOptions.set("backgroundColor",  backgroundColor);
+		
+		Options bar = ComboChart.createComboOptions();
+//		bar.set("groupWidth", "25%");
+		currentOptions.set("bar", bar);
 	    
 		Options chartArea = ComboChart.createComboOptions();
 		chartArea.set("left", "115");

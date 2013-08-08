@@ -61,11 +61,14 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 		// sets up button panel
 		HorizontalPanel bottomPanel = new HorizontalPanel();
 		addEntryButton = new Button("Add Food");
+		addEntryButton.setStyleName("button-link");
+		addEntryButton.setWidth("100px");
 		saveButton = new Button("Save");		
+		saveButton.setStyleName("button-link");
 		bottomPanel.add(addEntryButton);
 		bottomPanel.add(saveButton);
 		
-		int bottomPanelHeight = Window.getClientHeight() / 3;
+		int bottomPanelHeight = 300;
 		
 		this.addNorth(tableHeader, 30);
 		this.addSouth(bottomPanel, bottomPanelHeight);

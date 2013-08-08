@@ -6,9 +6,9 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tla.foodtracker.client.dayentry.DayEntryPanel;
 import com.tla.foodtracker.client.foodlist.FoodListPanel;
 import com.tla.foodtracker.client.plots.GraphView;
@@ -49,14 +49,14 @@ public class FoodTracker implements EntryPoint
 		tabPanel.add(foodListPanel, "Food List");
 		tabPanel.add(graphPanel, "Plots");
 		
-//		HorizontalPanel leftBar = new HorizontalPanel();
-//		leftBar.setStyleName("pageColumns");
-//		HorizontalPanel rightBar = new HorizontalPanel();
-//		rightBar.setStyleName("pageColumns");
+		HorizontalPanel bannerBar = new HorizontalPanel();
+		bannerBar.setStyleName("banner");
+		Label title = new Label("Nutrition Tracker");
+		title.setStyleName("bannerText");
+		bannerBar.add(title);
 		
-//		mainPanel.addWest(leftBar, 100);
-//		mainPanel.addEast(rightBar, 100);
-		mainPanel.addNorth(new VerticalPanel(),  50);
+		
+		mainPanel.addNorth(bannerBar,  50);
 		mainPanel.add(tabPanel);
 				
 		RootLayoutPanel.get().add(mainPanel);

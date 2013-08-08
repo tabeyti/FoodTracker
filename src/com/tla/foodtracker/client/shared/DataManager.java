@@ -46,7 +46,8 @@ public class DataManager
 		Element foodEntryElem;
 		Element child;
 		Element workoutElem;
-	   		
+	   	Element notesElem;	
+		
 		// root element
 		root = doc.createElement(LOG_ENTRY);
 		doc.appendChild(root);
@@ -85,6 +86,11 @@ public class DataManager
 		workoutElem = doc.createElement(WORKOUT);
 		workoutElem.appendChild(doc.createTextNode(le.getWorkout().toString()));
 		root.appendChild(workoutElem);
+		
+		// notes data
+		notesElem = doc.createElement(NOTES);
+		notesElem.appendChild(doc.createTextNode(le.getNotes()));
+		root.appendChild(notesElem);
 		
 		// send byte stream to the server
 		RPCInterfaceAsync rpci = GWT.create(RPCInterface.class);
@@ -154,6 +160,10 @@ public class DataManager
 		// pulls in workout
 		if (null != doc.getElementsByTagName(WORKOUT).item(0))
 			logEntry.setWorkout(Workout.findByValue(doc.getElementsByTagName(WORKOUT).item(0).getFirstChild().getNodeValue()));
+		
+		// pulls in notes
+		if (null != doc.getElementsByTagName(NOTES).item(0))
+			logEntry.setNotes(doc.getElementsByTagName(NOTES).item(0).getFirstChild().getNodeValue());
 		
 		return logEntry;
 		

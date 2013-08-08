@@ -11,12 +11,11 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HTMLTable;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.tla.foodtracker.client.IView;
 import com.tla.foodtracker.client.shared.DataManager;
@@ -43,16 +42,13 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 	private static DayBar dayBar;
 	private static LoadingPanel loadingPanel;
 	private static ListBox workoutListBox;
+	private static TextArea notesArea;
 	
 	private static Button addButton;
 	private static Button saveButton;
 
 	private DaySummaryPanel daySummaryPanel;
 	private static GoalsPanel goalsPanel;
-	private static Goals currentGoals;
-
-	private LogEntry currentLogEntry = null;
-	private FoodList currentFoodList = null;
 	
 	
 	/**
@@ -76,15 +72,28 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		statsPanel.add(daySummaryPanel);
 		statsPanel.add(goalsPanel);
 		
+		notesArea = new TextArea();
+		notesArea.setStyleName("notesArea");
+		notesArea.setWidth("100%");
+		notesArea.setHeight("150px");
+		FlexTable notesTable = new FlexTable();
+		notesTable.setStyleName("subTable");
+		notesTable.setWidth("350px");
+		notesTable.setText(0, 0,  "Day Notes");
+		notesTable.setWidget(1, 0, notesArea);
+		notesTable.getRowFormatter().addStyleName(0,  "subTableHeader");
+		statsPanel.add(notesTable);
+		
 		// sets up the upper bar containing date chooser and such
 		HorizontalPanel topPanel = new HorizontalPanel();
-		topPanel.setSpacing(5);
+		topPanel.setWidth("100%");
 		
+		HorizontalPanel dateChooserBar = new HorizontalPanel();
+		dateChooserBar.setSpacing(5);
 	    dateBox = new DateBox();
 	    dateBox.setValue(new Date());
 	    dateBox.getTextBox().setReadOnly(true);
 	    dateBox.setFormat(new DateBox.DefaultFormat(dateFormat));
-
 	    leftArrowDateButton = new Button("<<");
 	    leftArrowDateButton.setStyleName("flatButton");
 	    rightArrowDateButton = new Button(">>");
@@ -94,18 +103,25 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 	    dayBar = new DayBar(0);
 	    dayBar.setStyleName("dayBar");
 	    dayBar.setDay(dayFormat.format(new Date()));
+	    dateChooserBar.add(leftArrowDateButton);
+	    dateChooserBar.add(dateBox);
+	    dateChooserBar.add(rightArrowDateButton);
+	    dateChooserBar.add(dayBar);
 	    
 	    // populates workout list box
+	    FlexTable workoutTable = new FlexTable();
+	    workoutTable.getElement().setAttribute("align",  "right");
 	    workoutListBox = new ListBox();
 	    workoutListBox.setStyleName("dropDownBox");
 	    for (Workout wo : Workout.values())
 	    	workoutListBox.addItem(wo.toString());
+	    workoutTable.setText(0,  0,  "Workout");
+	    workoutTable.setWidget(0, 1, workoutListBox);
+	    workoutTable.setText(0, 2, " ");
+	    workoutTable.getRowFormatter().addStyleName(0,  "workoutTable");
 	    
-	    topPanel.add(leftArrowDateButton);
-	    topPanel.add(dateBox);
-	    topPanel.add(rightArrowDateButton);
-	    topPanel.add(dayBar);
-	    topPanel.add(workoutListBox);
+	    topPanel.add(dateChooserBar);
+	    topPanel.add(workoutTable);
 
 	    table = new  FoodEntryTable(daySummaryPanel);
 	    table.setWidth("100%");
@@ -114,18 +130,23 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 	    // sets up control buttons
 	    HorizontalPanel buttonPanel = new HorizontalPanel();
 		addButton = new Button("Add");
+		addButton.setStyleName("button-link");
 		addButton.setEnabled(false);
 		saveButton = new Button("Save");
 		saveButton.setEnabled(false);
+		saveButton.setStyleName("button-link");
 		buttonPanel.add(addButton);
 		buttonPanel.add(saveButton);
 		
-		// bottom panel
+		// bottom panel(s)
 		DockLayoutPanel bottomPanel = new DockLayoutPanel(Unit.PX);
 		bottomPanel.addNorth(buttonPanel, 40);
-		bottomPanel.add(statsPanel);
+		HorizontalPanel bottomPanelBody = new HorizontalPanel();
+		bottomPanelBody.setWidth("100%");
+		bottomPanelBody.add(statsPanel);
+		bottomPanel.add(bottomPanelBody);
 		
-		int bottomPanelHeight = Window.getClientHeight() / 3;
+		int bottomPanelHeight = 300;//Window.getClientHeight() / 3;
 		
 		this.addNorth(topPanel, 30);
 		this.addSouth(bottomPanel, bottomPanelHeight);		
@@ -241,7 +262,6 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 	 */
 	public static void loadGoals(Goals goals)
 	{
-		currentGoals = goals;
 		goalsPanel.loadGoals(goals);
 		
 	} // end loadGoals()
@@ -333,6 +353,9 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 			// set workout
 			workoutListBox.setSelectedIndex(le.getWorkout().ordinal());
 			
+			// sets notes
+			notesArea.setText(le.getNotes());
+			
 		}
 		
 		// updates food entries with proper data
@@ -357,6 +380,9 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		
 		// pulls workout data
 		le.setWorkout(Workout.findByValue(workoutListBox.getItemText(workoutListBox.getSelectedIndex())));
+		
+		// pulls notes data
+		le.setNotes(notesArea.getText());
 		
 		// saves log entry
 		try 

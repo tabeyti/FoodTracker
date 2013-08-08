@@ -14,7 +14,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.visualization.client.visualizations.corechart.ComboChart;
 import com.tla.foodtracker.client.shared.DataManager;
 import com.tla.foodtracker.client.shared.Goals;
 import com.tla.foodtracker.client.shared.LogEntry;
@@ -29,7 +28,6 @@ public class GraphView extends VerticalPanel
 	private MetricsPanel metricsPanel;
 	private NumberSpinner rangeSpinner;
 	private ListBox measurementBox;
-	private ArrayList<RadioButton> selectionButtons = new ArrayList<RadioButton>();	
 	
 	private static Goals goals = null;
 	
@@ -56,6 +54,7 @@ public class GraphView extends VerticalPanel
 		// creates list box for all displayable measurements
 		measurementBox = new ListBox();
 		measurementBox.setStyleName("dropDownBox");
+		measurementBox.addItem("");
 		for (Measurement msm : Measurement.values())
 			measurementBox.addItem(msm.toString());
 		
@@ -85,6 +84,8 @@ public class GraphView extends VerticalPanel
 		
 		// creates graphs panel
 		VerticalPanel graphPanel = new VerticalPanel();
+		graphPanel.getElement().setAttribute("overflow",  "scroll");
+		graphPanel.setStyleName("graphPanel");
 		graphPanel.add(msmGraph);
 		graphPanel.add(woGraph);
 		
@@ -104,6 +105,8 @@ public class GraphView extends VerticalPanel
 			public void onChange(ChangeEvent event)
 			{
 				RANGE = rangeSpinner.getValue();
+				if (measurementBox.getSelectedIndex() == 0)
+					return;
 				GraphView.this.plotMeasurement(Measurement.findEnum(measurementBox.getValue(measurementBox.getSelectedIndex())));
 			}
 		});
@@ -112,37 +115,22 @@ public class GraphView extends VerticalPanel
 			@Override
 			public void onChange(ChangeEvent event)
 			{
+				if (measurementBox.getSelectedIndex() == 0)
+					return;
 				rangeSpinner.setEnabled(true);
 				GraphView.this.plotMeasurement(Measurement.findEnum(measurementBox.getValue(measurementBox.getSelectedIndex())));				
 			}	
 		});
 		
 	} // end  GraphView()
+
 	
-	
-	private String getSelection()
-	{
-		for (RadioButton rb : selectionButtons)
-		{
-			if (rb.getValue() == true)
-			{
-				return rb.getText();
-			}
-		}
-		
-		return "";
-		
-	} // end getSelection()
-	
-	
+	/**
+	 * Refreshes information on this page.
+	 */
 	public void refresh()
 	{
-		// refreshes the last graph view prior to leaving the tab
-		String selection = getSelection();
-		 if ("".equals(selection))
-			 return;
-		 
-		 this.plotMeasurement(Measurement.findEnum(getSelection()));
+
 		
 	} // end refresh()
 
@@ -210,7 +198,7 @@ public class GraphView extends VerticalPanel
 			Collections.sort(currentLogEntries);
 			
 			// update the metrics display
-			MetricsPanel.updateMetrics(currentLogEntries);
+			MetricsPanel.updateMetrics(currentLogEntries, goals);
 			
 			// select which view to plot
 			msmGraph.plotMeasurement(displayChoice, currentLogEntries, goals, RANGE);
