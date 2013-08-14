@@ -17,10 +17,10 @@ import com.tla.foodtracker.shared.Globals;
 
 public class ServerDataManager extends RemoteServiceServlet implements RPCInterface
 {
-	private static String logPath = "logs/";
-	private static String datPath = "dat/";
-//	private static String logPath = "C:/ServerFiles/FoodTracker/logs/";
-//	private static String datPath = "C:/ServerFiles/FoodTracker/dat/";
+//	private static String logPath = "logs/";
+//	private static String datPath = "dat/";
+	private static String logPath = "C:/ServerFiles/FoodTracker/logs/";
+	private static String datPath = "C:/ServerFiles/FoodTracker/dat/";
 
 	
 	@Override

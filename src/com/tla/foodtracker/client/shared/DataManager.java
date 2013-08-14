@@ -162,7 +162,8 @@ public class DataManager
 			logEntry.setWorkout(Workout.findByValue(doc.getElementsByTagName(WORKOUT).item(0).getFirstChild().getNodeValue()));
 		
 		// pulls in notes
-		if (null != doc.getElementsByTagName(NOTES).item(0))
+		if (null != doc.getElementsByTagName(NOTES).item(0) && 
+			null != doc.getElementsByTagName(NOTES).item(0).getFirstChild())
 			logEntry.setNotes(doc.getElementsByTagName(NOTES).item(0).getFirstChild().getNodeValue());
 		
 		return logEntry;

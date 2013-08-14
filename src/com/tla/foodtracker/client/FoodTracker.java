@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tla.foodtracker.client.dayentry.DayEntryPanel;
 import com.tla.foodtracker.client.foodlist.FoodListPanel;
 import com.tla.foodtracker.client.plots.GraphView;
@@ -30,6 +31,26 @@ public class FoodTracker implements EntryPoint
 	 */
 	public void onModuleLoad() 
 	{
+		LoginBox lb = new LoginBox(this);
+		lb.setStyleName("loginBox");
+		lb.getElement().getStyle().setMarginLeft(10, Unit.PX);
+		lb.getElement().getStyle().setMarginTop(10, Unit.PX);
+		
+		VerticalPanel dlp = new VerticalPanel();
+		dlp.setBorderWidth(1);
+		dlp.setWidth("100%");
+		dlp.setHeight("100%");
+		dlp.add(lb);
+				
+		RootLayoutPanel.get().add(dlp);
+		
+	} // end onModuleLoad()
+	
+	
+	public void loadApp()
+	{
+		RootLayoutPanel.get().clear();
+		
 		mainPanel = new DockLayoutPanel(Unit.PX);
 		mainPanel.setStyleName("mainPanel");
 		
@@ -74,7 +95,6 @@ public class FoodTracker implements EntryPoint
 			}
 
 		});
-		
-	} // end onModuleLoad()
+	}
 	
 } // end class FoodTracker

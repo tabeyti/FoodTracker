@@ -19,6 +19,7 @@ GRAPH
 - Need to have graph resize, OR, have the bottom bar resize.  Both can't be static.
 - Add a range selection feature on any range entered in for dates (range end doesn't have to be today's date)
 - Need scrolling support
+- Add graphing of specific foods
 
 
 

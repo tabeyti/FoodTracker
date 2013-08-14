@@ -1,2 +1,3 @@
 # Module foodtracker
 # RPC service class, partial path of RPC policy file
+com.tla.foodtracker.client.shared.RPCInterface, 4D67C7342193D91F90E6F7D2B178EFF1.gwt.rpc

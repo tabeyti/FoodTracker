@@ -80,6 +80,9 @@ public class DataCallBack implements AsyncCallback<Data>
 						case DAY_ENTRY:
 							DayEntryPanel.loadFoodList(fl);
 							break;
+						case PLOT_LINE:
+							GraphView.loadFoodList(fl);
+							break;
 						default:
 							break;						
 					}					

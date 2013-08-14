@@ -87,4 +87,14 @@ public class LogEntry implements Comparable<LogEntry>
 		return date.compareTo(arg0.date);
 	}
 	
+	public double getFoodUnits(Food food)
+	{
+		for (FoodEntry fe : fes)
+		{
+			if (food.getName().equals(fe.getName()))
+				return fe.getUnits();
+		}
+		return 0;
+	}
+	
 } // end class LogEntry

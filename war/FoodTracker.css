@@ -78,7 +78,10 @@ h1 {
 {
 	background-color: #f1eeff;
 }
-
+.loginBox
+{
+	border: 1px solid silver;
+}
 
 .pageColumns
 {

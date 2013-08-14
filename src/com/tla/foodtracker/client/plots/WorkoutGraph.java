@@ -29,7 +29,7 @@ public class WorkoutGraph extends VerticalPanel
 	private static Goals goals = null;
 	private static Options currentOptions;
 	
-	private static int width = 1000;
+	private static int width = 900;
 	private static int height = 100;
 	
 	private static final String colors[] = {"FF0000", "0000FF", "FFFF00", "FFA500", "008000", "000000"};
