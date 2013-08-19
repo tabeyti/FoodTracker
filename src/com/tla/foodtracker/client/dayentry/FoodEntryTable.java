@@ -52,8 +52,7 @@ public class FoodEntryTable extends DockLayoutPanel implements BlurHandler, Chan
 		// initializes header style
 		tableHeader.getRowFormatter().setStyleName(0,  "tableHeader");
 		// body style
-		
-		
+				
 		ScrollPanel tablePanel = new ScrollPanel();
 		tablePanel.setStyleName("tableBackground");
 		tablePanel.add(table);

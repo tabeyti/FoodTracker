@@ -1,10 +1,10 @@
 GENERAL
-- Make scrollbar on the srollpane more visible
-- Add refresh on graph when tab is selected
-- Login feature
+- User profiles ****
+	* Need to pull username and passwords from server using RPC
+	* Need to have it save xml's in a folder based on the a user profile (log entries, food list, goals, etc.)
+		- there will be shared data?
 
 DAY ENTRY
-- Make DayBar labels clickable (may be too hard to integrate as it would have to be of the same entity as the daybox)
 
 FOOD LIST
 - Move up bottom bar and/or make it look pretty 
@@ -16,10 +16,10 @@ EXTRA
 - Caffeine and Sodium measurements
 	
 GRAPH
-- Need to have graph resize, OR, have the bottom bar resize.  Both can't be static.
 - Add a range selection feature on any range entered in for dates (range end doesn't have to be today's date)
 - Need scrolling support
-- Add graphing of specific foods
+- Add selection of multiple foods to see in tandum (maybe)
+	- Maybe add category for each food (fruits, vegitables, meats, etc.).
 
 
 
@@ -29,5 +29,13 @@ LEFT OFF AT
 
 ISSUES
 - Day Entry graph doesn't show up if the monitor size is too small yet Foodlistpanel doesn't have an issue.
-- clipping of inner panel contents day entry table
+- When selecting day using the dateBox in DayBar...an exception occurs.
 
+
+
+*** OVERALL ***
+- May restructure application to be a generic tracker that tracks multiple things beyond just nutrition.
+	- Mood
+	- Medication
+	- Sleep
+	

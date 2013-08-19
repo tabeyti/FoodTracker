@@ -3,7 +3,6 @@ package com.tla.foodtracker.client.foodlist;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -11,6 +10,7 @@ import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tla.foodtracker.client.IView;
 import com.tla.foodtracker.client.shared.DataManager;
 import com.tla.foodtracker.client.shared.DoubleTextBox;
@@ -70,10 +70,11 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 		
 		int bottomPanelHeight = 300;
 		
+		this.addWest(new VerticalPanel(), 5);
+		this.addEast(new VerticalPanel(), 5);
 		this.addNorth(tableHeader, 30);
 		this.addSouth(bottomPanel, bottomPanelHeight);
-		this.add(tablePanel);
-		
+		this.add(tablePanel);		
 		
 		// sets up event listeners
 		addEntryButton.addClickHandler(new ClickHandler()

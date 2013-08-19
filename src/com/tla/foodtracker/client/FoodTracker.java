@@ -72,7 +72,7 @@ public class FoodTracker implements EntryPoint
 		
 		HorizontalPanel bannerBar = new HorizontalPanel();
 		bannerBar.setStyleName("banner");
-		Label title = new Label("Nutrition Tracker");
+		Label title = new Label("Health Tracker");
 		title.setStyleName("bannerText");
 		bannerBar.add(title);
 		

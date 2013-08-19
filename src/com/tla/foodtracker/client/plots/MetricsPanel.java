@@ -2,6 +2,7 @@ package com.tla.foodtracker.client.plots;
 
 import java.util.Vector;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
@@ -23,9 +24,8 @@ public class MetricsPanel extends VerticalPanel
 	 * CONSTRUCTOR
 	 */
 	public MetricsPanel()
-	{
-		String tableWidth = "270px";
-		
+	{		
+		String tableWidth = "270px";		
 		title = new Label("Metrics");
 		title.setStyleName("sectionTitle");
 		

@@ -2,22 +2,25 @@ package com.tla.foodtracker.client.dayentry;
 
 import java.util.Date;
 
+import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.tla.foodtracker.client.IView;
+import com.tla.foodtracker.client.plots.GraphView;
 import com.tla.foodtracker.client.shared.DataManager;
 import com.tla.foodtracker.client.shared.ExceptionWindow;
 import com.tla.foodtracker.client.shared.FoodEntries;
@@ -32,23 +35,21 @@ import com.tla.foodtracker.shared.Destination;
 
 public class DayEntryPanel extends DockLayoutPanel implements IView
 {
-	private Button leftArrowDateButton;
-	private Button rightArrowDateButton;
-	private static DateBox dateBox;
-	private static Label dayOfWeekLabel;
 	private static DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM-dd-yyyy");
 	private static DateTimeFormat dayFormat = DateTimeFormat.getFormat("EEEE");	
 	private static FoodEntryTable table;
 	private static DayBar dayBar;
 	private static LoadingPanel loadingPanel;
 	private static ListBox workoutListBox;
-	private static TextArea notesArea;
+	private static NotesPanel notesPanel;
 	
 	private static Button addButton;
 	private static Button saveButton;
 
 	private DaySummaryPanel daySummaryPanel;
 	private static GoalsPanel goalsPanel;
+	
+	private int statsPanelWidth = 300;
 	
 	
 	/**
@@ -60,53 +61,33 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		this.setStyleName("temp");
 		
 		// sets the lower data panel
-		HorizontalPanel statsPanel = new HorizontalPanel();
-		statsPanel.setSpacing(10);
+		VerticalPanel statsPanel = new VerticalPanel();
 		statsPanel.setStyleName("statsPanel");
-//		statsPanel.setWidth("100%");
+		statsPanel.setWidth(Integer.toString(statsPanelWidth - 10) + "px");
+		statsPanel.setSpacing(5);
+		
 		daySummaryPanel = new DaySummaryPanel();
 		daySummaryPanel.setStyleName("statsPanelItem");
+		daySummaryPanel.setWidth("100%");
 		goalsPanel = new GoalsPanel();
 		goalsPanel.setStyleName("statsPanelItem");
-		goalsPanel.setWidth("400px");
+		goalsPanel.setWidth("100%");
+		goalsPanel.setHeight("100%");
+		notesPanel = new NotesPanel();
+		notesPanel.setStyleName("statsPanelItem");
+		notesPanel.setWidth("100%");
+		notesPanel.setHeight("250px");
 		statsPanel.add(daySummaryPanel);
 		statsPanel.add(goalsPanel);
-		
-		notesArea = new TextArea();
-		notesArea.setStyleName("notesArea");
-		notesArea.setWidth("100%");
-		notesArea.setHeight("150px");
-		FlexTable notesTable = new FlexTable();
-		notesTable.setStyleName("subTable");
-		notesTable.setWidth("350px");
-		notesTable.setText(0, 0,  "Day Notes");
-		notesTable.setWidget(1, 0, notesArea);
-		notesTable.getRowFormatter().addStyleName(0,  "subTableHeader");
-		statsPanel.add(notesTable);
+		statsPanel.add(notesPanel);
 		
 		// sets up the upper bar containing date chooser and such
 		HorizontalPanel topPanel = new HorizontalPanel();
 		topPanel.setWidth("100%");
 		
-		HorizontalPanel dateChooserBar = new HorizontalPanel();
-		dateChooserBar.setSpacing(5);
-	    dateBox = new DateBox();
-	    dateBox.setValue(new Date());
-	    dateBox.getTextBox().setReadOnly(true);
-	    dateBox.setFormat(new DateBox.DefaultFormat(dateFormat));
-	    leftArrowDateButton = new Button("<<");
-	    leftArrowDateButton.setStyleName("flatButton");
-	    rightArrowDateButton = new Button(">>");
-	    rightArrowDateButton.setStyleName("flatButton");
-	    dayOfWeekLabel = new Label(dayFormat.format(new Date()));
-	    dayOfWeekLabel.setStyleName("sectionTitle");
 	    dayBar = new DayBar(0);
 	    dayBar.setStyleName("dayBar");
 	    dayBar.setDay(dayFormat.format(new Date()));
-	    dateChooserBar.add(leftArrowDateButton);
-	    dateChooserBar.add(dateBox);
-	    dateChooserBar.add(rightArrowDateButton);
-	    dateChooserBar.add(dayBar);
 	    
 	    // populates workout list box
 	    FlexTable workoutTable = new FlexTable();
@@ -119,16 +100,19 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 	    workoutTable.setWidget(0, 1, workoutListBox);
 	    workoutTable.setText(0, 2, " ");
 	    workoutTable.getRowFormatter().addStyleName(0,  "workoutTable");
-	    
-	    topPanel.add(dateChooserBar);
+
+	    // adds top items to top panel
+	    topPanel.add(dayBar);
 	    topPanel.add(workoutTable);
 
+	    // initializes main entry table
 	    table = new  FoodEntryTable(daySummaryPanel);
 	    table.setWidth("100%");
 	    table.setStyleName("shadow");
 	    
 	    // sets up control buttons
-	    HorizontalPanel buttonPanel = new HorizontalPanel();
+	    VerticalPanel buttonPanel = new VerticalPanel();
+	    
 		addButton = new Button("Add");
 		addButton.setStyleName("button-link");
 		addButton.setEnabled(false);
@@ -137,48 +121,20 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		saveButton.setStyleName("button-link");
 		buttonPanel.add(addButton);
 		buttonPanel.add(saveButton);
+
+		// right bar to hold control button content and other things
+		VerticalPanel rightBar = new VerticalPanel();
+		rightBar.setSpacing(5);
+		rightBar.setHeight("100%");
+		rightBar.add(buttonPanel);		
 		
-		// bottom panel(s)
-		DockLayoutPanel bottomPanel = new DockLayoutPanel(Unit.PX);
-		bottomPanel.addNorth(buttonPanel, 40);
-		HorizontalPanel bottomPanelBody = new HorizontalPanel();
-		bottomPanelBody.setWidth("100%");
-		bottomPanelBody.add(statsPanel);
-		bottomPanel.add(bottomPanelBody);
-		
-		int bottomPanelHeight = 300;//Window.getClientHeight() / 3;
-		
+		this.addEast(statsPanel, statsPanelWidth);
 		this.addNorth(topPanel, 30);
-		this.addSouth(bottomPanel, bottomPanelHeight);		
+		this.addWest(rightBar, 70);		
+		this.addSouth(new HorizontalPanel(), 5);
 		this.add(table);
 		
 		// sets up event listeners
-		leftArrowDateButton.addClickHandler(new ClickHandler()
-		{
-			@Override
-			public void onClick(ClickEvent event) 
-			{
-				incDecDate(false);				
-			}
-			
-		});
-		rightArrowDateButton.addClickHandler(new ClickHandler()
-		{
-			@Override
-			public void onClick(ClickEvent event) 
-			{
-				incDecDate(true);				
-			}
-			
-		});
-		dateBox.addValueChangeHandler(new ValueChangeHandler<Date>()
-		{
-			@Override
-			public void onValueChange(ValueChangeEvent<Date> event)
-			{
-				setDate(dateBox.getValue());				
-			}
-		});
 		addButton.addClickHandler(new ClickHandler()
 		{
 			@Override
@@ -199,6 +155,15 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 			public void onClick(ClickEvent event) 
 			{
 				saveLogEntry();
+			}
+		});
+		dayBar.addChangeHandler(new ChangeHandler()
+		{
+			@Override
+			public void onChange(ChangeEvent event)
+			{
+				table.clear();
+				requestLogEntry();
 			}
 		});
 		
@@ -268,55 +233,19 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 
 	
 	/**
-	 * Increments or decrements the date based on the passed in boolean.
-	 * @param inc
-	 */
-	private void incDecDate(boolean inc)
-	{
-		Date date = dateBox.getValue();
-		
-		if (inc)
-			date.setDate(date.getDate() + 1);
-		else
-			date.setDate(date.getDate() - 1);
-		
-		setDate(date);
-		
-	} // end incDecDate()
-	
-	
-	/**
-	 * Sets the passed date to the date box and does a new log entry 
-	 * lookup.
-	 * @param date
-	 */
-	private void setDate(Date date)
-	{
-		dateBox.setValue(date);
-		dayOfWeekLabel.setText(dayFormat.format(date));
-		dayBar.setDay(dayFormat.format(date));
-		
-		table.clear();
-		requestLogEntry();
-		
-	} // end setDate(Date date)
-	
-	
-	/**
 	 * Sends the request for the specified log entry (determined by date).
 	 */
 	public static void requestLogEntry()
 	{
 		if (null == loadingPanel)
 			loadingPanel = new LoadingPanel();
-			
-		
+					
 		try 
 		{
 			// disables control buttons while request is in progress
 			addButton.setEnabled(false);
 			saveButton.setEnabled(false);			
-			DataManager.requestLogEntry(dateFormat.format(dateBox.getValue()), Destination.DAY_ENTRY);
+			DataManager.requestLogEntry(dateFormat.format(dayBar.getDate()), Destination.DAY_ENTRY);
 		} 
 		catch (Exception e) 
 		{
@@ -341,11 +270,6 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		
 		if (null != le)
 		{	
-			// set date
-//			Date date = dateFormat.parse(le.getDate());
-//			dateBox.setValue(date);
-//			dayOfWeekLabel.setText(dayFormat.format(date));
-			
 			// load food entries
 			for (FoodEntry fe : le.getFoodEntries())
 				table.addFoodEntry(fe);
@@ -354,7 +278,7 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 			workoutListBox.setSelectedIndex(le.getWorkout().ordinal());
 			
 			// sets notes
-			notesArea.setText(le.getNotes());
+			notesPanel.setText(le.getNotes());
 			
 		}
 		
@@ -364,6 +288,8 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		loadingPanel.hide();
 		loadingPanel = null;
 		
+		dayBar.setFired(false);
+		
 	} // end loadLogEntry()
 
 	
@@ -372,7 +298,7 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 	 */
 	private void saveLogEntry()
 	{
-		LogEntry le = new LogEntry(dateFormat.format(dateBox.getValue()));
+		LogEntry le = new LogEntry(dateFormat.format(dayBar.getDate()));
 		
 		// pulls food entries from table
 		FoodEntries fes = table.getFoodEntries();
@@ -382,7 +308,7 @@ public class DayEntryPanel extends DockLayoutPanel implements IView
 		le.setWorkout(Workout.findByValue(workoutListBox.getItemText(workoutListBox.getSelectedIndex())));
 		
 		// pulls notes data
-		le.setNotes(notesArea.getText());
+		le.setNotes(notesPanel.getText());
 		
 		// saves log entry
 		try 

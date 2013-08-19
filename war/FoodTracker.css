@@ -34,15 +34,16 @@ h1 {
 }
 .button-link
 {
+	background-color: white;
 	width: 60px;
 	height: 30px;
 	font-style: bold;
 	font-size: 12px;
 	font-family: "Calibri";
-	border-radius: 4px;
+	border-radius: 2px;
 	border: solid 1px silver;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+/* 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); */
 	
 	-webkit-transition-duration: 0.2s;
     -moz-transition-duration: 0.2s;
@@ -184,11 +185,11 @@ h1 {
 }
 .tableSecondToLastColumn
 {
-	width: 150px;
+/* 	width: 100px; */
 }
 .tableStandardColumn
 {
-	width: 150px;
+	width: 100px;
 }
 .tableBackground
 {
@@ -238,10 +239,11 @@ h1 {
 }
 
 
+
 /** Day Bar **/
 .dayBar
 {
-	margin-left: 20px;
+
 }
 .dayBarTable
 {
@@ -258,27 +260,23 @@ h1 {
 	-moz-box-shadow: inset 2px 2px 5px #a6a3b9;
 	-webkit-box-shadow: inset 2px 2px 5px #a6a3b9;
 	box-shadow: inset 2px 2px 2px #a6a3b9;
+	text-decoration: none;
 }
 .dayBarUnselectedDay
 {
 	font-weight: bold;
 	color: darkGray;
 	text-align:center;
+	text-decoration: none;
 }
 
 
 /** Day Entry Panel **/
 .statsPanel
 {
-/* 	-moz-box-shadow: inset -2px 2px 12px 3px rgb(150, 150, 150); */
-/* 	-webkit-box-shadow: inset -2px 2px 12px 3px rgb(150, 150, 150); */
-/* 	box-shadow: inset -2px 2px 12px 3px rgb(150, 150, 150); */
-/* 	background-color: lightGrey; */
+	padding-bottom: 5px;
 }
-.statsPanelItem
-{
-	width: 200px;
-}
+
 .goalsPanelEditButton
 {
 	float: right;
@@ -311,4 +309,10 @@ h1 {
 {
 /* 	box-shadow: -2px 2px 12px 3px rgb(150, 150, 150); */
 	box-shadow: inset 5px 5px 10px black;
+}
+.pageBottomBar
+{
+	border: 1px solid silver;
+	margin-bottom: 10px;
+	background-color: aqua;
 }
