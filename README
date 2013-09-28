@@ -1,0 +1,7 @@
+The FoodTracker is a web-based application made for tracking and storing one's nutritional intake on a day-to-day basis. There are three views: the Day View for tracking daily food intake and workout instances, the Food List view for adding, editing, and deleting foods, and a Graph View for graphing compiled food data.  
+
+Food "measurements" such as calories, fats, carbohydrates, and protein are aggregated on your Day View and can be compared to a set of user defined goals.  The entering of food information in the Day View is made easy by pulling from a populated food list that can be edited by the user in the Food List view.
+
+Daily nutritional information can be displayed to the user in the form of a plot based on a user-defined time span and measurement selection.  The timespan information is also aggregated in the form of metrics on the graph view, such as averages, to give the user an idea of overall progress.
+
+The program was developed solely in JAVA using the GWT.
