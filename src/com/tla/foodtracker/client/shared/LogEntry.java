@@ -1,13 +1,12 @@
 package com.tla.foodtracker.client.shared;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class LogEntry 
+public class LogEntry implements Comparable<LogEntry>
 {
 	private FoodEntries fes = new FoodEntries();
 	private String date;
 	private Workout workout = Workout.NONE;
+	private String notes = "";
 	
 	
 	/**
@@ -65,11 +64,37 @@ public class LogEntry
 	{
 		this.fes = fes;
 	}
-
+	
+	public String getNotes()
+	{
+		return this.notes;
+	}
+	
+	public void setNotes(String notes)
+	{
+		this.notes = notes;
+	}
+	
 
 	public void setDate(String date)
 	{
 		this.date = date;
+	}
+
+	@Override
+	public int compareTo(LogEntry arg0)
+	{
+		return date.compareTo(arg0.date);
+	}
+	
+	public double getFoodUnits(Food food)
+	{
+		for (FoodEntry fe : fes)
+		{
+			if (food.getName().equals(fe.getName()))
+				return fe.getUnits();
+		}
+		return 0;
 	}
 	
 } // end class LogEntry

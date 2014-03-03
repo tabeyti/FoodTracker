@@ -3,7 +3,6 @@ package com.tla.foodtracker.client.foodlist;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -11,6 +10,7 @@ import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.tla.foodtracker.client.IView;
 import com.tla.foodtracker.client.shared.DataManager;
 import com.tla.foodtracker.client.shared.DoubleTextBox;
@@ -24,6 +24,7 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 {
 	private static FlexTable table;
 	private static FlexTable tableHeader;
+	private ScrollPanel tablePanel;
 	private Button addEntryButton;
 	private Button saveButton;
 	private static FoodList activeFoodList = new FoodList();
@@ -52,7 +53,7 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 		table.setStyleName("table");
 		
 		// table panel
-		ScrollPanel tablePanel = new ScrollPanel();
+		tablePanel = new ScrollPanel();
 		tablePanel.setStyleName("tableBackground");
 		tablePanel.setWidth("100%");
 		tablePanel.add(table);
@@ -60,16 +61,20 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 		// sets up button panel
 		HorizontalPanel bottomPanel = new HorizontalPanel();
 		addEntryButton = new Button("Add Food");
+		addEntryButton.setStyleName("button-link");
+		addEntryButton.setWidth("100px");
 		saveButton = new Button("Save");		
+		saveButton.setStyleName("button-link");
 		bottomPanel.add(addEntryButton);
 		bottomPanel.add(saveButton);
 		
-		int bottomPanelHeight = Window.getClientHeight() / 3;
+		int bottomPanelHeight = 300;
 		
+		this.addWest(new VerticalPanel(), 5);
+		this.addEast(new VerticalPanel(), 5);
 		this.addNorth(tableHeader, 30);
 		this.addSouth(bottomPanel, bottomPanelHeight);
-		this.add(tablePanel);
-		
+		this.add(tablePanel);		
 		
 		// sets up event listeners
 		addEntryButton.addClickHandler(new ClickHandler()
@@ -78,6 +83,7 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 			public void onClick(ClickEvent event) 
 			{
 				addFood(new Food());
+				tablePanel.scrollToBottom();
 			}
 		});
 		saveButton.addClickHandler(new ClickHandler()
@@ -177,7 +183,11 @@ public class FoodListPanel extends DockLayoutPanel implements IView
 		});
 		table.setWidget(row, col, removeButton);
 		
+		// set style
 		table.getRowFormatter().addStyleName(row, "tableRow");
+		
+		// apply focus to the row
+		name.setFocus(true);
 		
 	} // end addFood()
 	

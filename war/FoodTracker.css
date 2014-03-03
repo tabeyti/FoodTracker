@@ -18,23 +18,53 @@ h1 {
     text-align: center;
     margin-left: -16px;
 }
-
 .sendButton {
   display: block;
   font-size: 16pt;
 }
-
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
   width: 400px;
 }
-
 .dialogVPanel {
   margin: 5px;
 }
-
 .serverResponseLabelError {
   color: red;
+}
+.button-link
+{
+	background-color: white;
+	width: 60px;
+	height: 30px;
+	font-style: bold;
+	font-size: 12px;
+	font-family: "Calibri";
+	border-radius: 2px;
+	border: solid 1px silver;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+/* 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); */
+	
+	-webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}
+.button-link:hover, .button-link:focus
+{
+	background: silver;
+    border: solid 1px DarkGrey;
+    text-decoration: none;
+}
+.banner
+{
+	padding-top: 5px;
+	padding-left: 10px;
+}
+.bannerText
+{
+	font-size: 25px;
+	color: darkGrey;
+/* 	text-shadow: 2px 2px 7px silver; */
 }
 
 /** Set ids using widget.getElement().setId("idOfElement") */
@@ -45,13 +75,57 @@ h1 {
 
 
 /** Main page styles **/
+.mainPanel
+{
+	background-color: #f1eeff;
+}
+.loginBox
+{
+	border: 1px solid silver;
+}
+
 .pageColumns
 {
-	background-color: lightBlue;
+	background-color: none;
 }
-.tabPanel .gwt-TabLayoutPanelContent
+
+/** TabLayoutPanel style overrides **/
+.gwt-TabLayoutPanelContentContainer
+{ 
+	border: none !important; 
+	box-shadow: 5px 5px 5px #a6a3b9; 
+}
+.gwt-TabLayoutPanelContent
 {
-	overflow: scroll;
+	border: none !important;
+	background-color: white;
+	box-shadow: 5px 5px 5px #a6a3b9; 
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs
+{
+/* 	-moz-box-shadow: 5px 5px 5px #a6a3b9; */
+/* 	-webkit-box-shadow: 5px 5px 5px #a6a3b9; */
+/* 	box-shadow: 5px 5px 5px #a6a3b9; */
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab
+{
+	-moz-box-shadow: 5px 5px 5px #a6a3b9;
+	-webkit-box-shadow: 5px 5px 5px #a6a3b9;
+	box-shadow: 5px 5px 5px #a6a3b9;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab
+{
+	background-color: lightBlue !important;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected
+{
+	background-color: white !important;
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabInner 
+{
+	font-size: 13px;
+	color: rgb (120,120,120);
+  	font-weight: normal;
 }
 .tab
 {
@@ -69,6 +143,11 @@ h1 {
 	border: 1px solid grey;
 	width: 100%;
 }
+.controlButton
+{
+	border: 1px solid silver;
+	
+}
 .inputBox
 {
 	border: 0px solid grey;
@@ -83,7 +162,7 @@ h1 {
 }
 .table
 {
-	border: 1px solid silver;
+/* 	border: 1px solid silver; */
 	width: 100%;
 }
 .tableRow
@@ -106,22 +185,30 @@ h1 {
 }
 .tableSecondToLastColumn
 {
-	width: 150px;
+/* 	width: 100px; */
 }
 .tableStandardColumn
 {
-	width: 150px;
+	width: 100px;
 }
 .tableBackground
 {
 	background-color: silver;
+	box-shadow: inset -2px 2px 12px 3px rgb(150, 150, 150);
 }
 
 .subTable
 {
+	margin-top: 5px;
 	padding: 5px;
 	border-collapse: collapse;
 	border: 1px solid silver;
+	background-color: white;
+	
+	-moz-box-shadow: 5px 5px 5px #a6a3b9;
+	-webkit-box-shadow: 5px 5px 5px #a6a3b9;
+	box-shadow: 5px 5px 5px #a6a3b9;
+
 }
 .subTableRow
 {
@@ -138,6 +225,12 @@ h1 {
 	background-color: lightBlue;
 	height: 25px;
 }
+.subTableHeader2
+{
+	font-weight: bold;
+	background-color: Aqua;
+	height: 25px;
+}
 .goalsPanelEditButton,
 .flatButton
 {
@@ -146,15 +239,11 @@ h1 {
 }
 
 
-.temp
-{
-	border: 1px solid black;
-}
 
 /** Day Bar **/
 .dayBar
 {
-	margin-left: 20px;
+
 }
 .dayBarTable
 {
@@ -163,34 +252,67 @@ h1 {
 .dayBarSelectedDay
 {
 	font-weight: bold;
-	color: red;
+	
+	color: #686868;
+	background-color: #e4deff;
+/* 	border: 1px solid silver; */
+	text-align:center;
+	-moz-box-shadow: inset 2px 2px 5px #a6a3b9;
+	-webkit-box-shadow: inset 2px 2px 5px #a6a3b9;
+	box-shadow: inset 2px 2px 2px #a6a3b9;
+	text-decoration: none;
 }
 .dayBarUnselectedDay
 {
 	font-weight: bold;
 	color: darkGray;
+	text-align:center;
+	text-decoration: none;
 }
 
 
 /** Day Entry Panel **/
-
-
 .statsPanel
 {
-/* 	margin-top: 5px;	 */
+	padding-bottom: 5px;
 }
-.statsPanelItem
-{
-	width: 200px;
-}
+
 .goalsPanelEditButton
 {
 	float: right;
 }
+.notesArea
+{
+	font-family: Arial;
+	border: none;
+}
+.workoutTable
+{
+	font-weight: bold;
+}
+
+/** GraphView Panel **/
+.metricsPanel
+{
+	padding-left: 10px;	
+}
+
+/** plot **/
+.graphPanel
+{
+	border: 1px solid silver;
+}
 
 
-/** General/Test **/
-/* .shadow */
-/* { */
-/* 	box-shadow: inset 3px 3px 5px 5px #000000; */
-/* } */
+/ ** general and test **/
+.boxShadow
+{
+/* 	box-shadow: -2px 2px 12px 3px rgb(150, 150, 150); */
+	box-shadow: inset 5px 5px 10px black;
+}
+.pageBottomBar
+{
+	border: 1px solid silver;
+	margin-bottom: 10px;
+	background-color: aqua;
+}

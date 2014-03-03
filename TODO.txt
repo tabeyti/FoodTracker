@@ -1,0 +1,41 @@
+GENERAL
+- User profiles ****
+	* Need to pull username and passwords from server using RPC
+	* Need to have it save xml's in a folder based on the a user profile (log entries, food list, goals, etc.)
+		- there will be shared data?
+
+DAY ENTRY
+
+FOOD LIST
+- Move up bottom bar and/or make it look pretty 
+	- remove fixed bottom bar maybe
+- Need to have hashed lookup of food instead of sequential string search.
+
+EXTRA
+- Workout tracker
+- Caffeine and Sodium measurements
+	
+GRAPH
+- Add a range selection feature on any range entered in for dates (range end doesn't have to be today's date)
+- Need scrolling support
+- Add selection of multiple foods to see in tandum (maybe)
+	- Maybe add category for each food (fruits, vegitables, meats, etc.).
+
+
+
+
+LEFT OFF AT
+- Unit is not saved with food entry, having to pull from food list (which should be done regardless?)
+
+ISSUES
+- Day Entry graph doesn't show up if the monitor size is too small yet Foodlistpanel doesn't have an issue.
+- When selecting day using the dateBox in DayBar...an exception occurs.
+
+
+
+*** OVERALL ***
+- May restructure application to be a generic tracker that tracks multiple things beyond just nutrition.
+	- Mood
+	- Medication
+	- Sleep
+	

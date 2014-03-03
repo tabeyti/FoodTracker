@@ -26,13 +26,13 @@ public class DaySummaryPanel extends VerticalPanel
 		table.setText(0, 0, "Day Summary");
 		table.setText(0, 1, "");
 		table.getRowFormatter().addStyleName(0,  "subTableHeader");
-		
+				
 		int row = 1;
 		for (Measurement msm : Measurement.values())
 		{
 			table.setText(row, 0, msm.toString());
 			table.setText(row, 1, "0");
-			table.getRowFormatter().addStyleName(row, "subthisRow");
+			table.getRowFormatter().addStyleName(row, "subTableRow");
 			row++;
 		}
 

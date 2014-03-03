@@ -28,12 +28,8 @@ public class GoalsPanel extends VerticalPanel
 		
 		// initializes table with titles and default values
 		table = new FlexTable();
-		table.setStyleName("subTable");
-			
-
-		
-		
 		table.setWidth("100%");
+		table.setStyleName("subTable");	
 		
 		table.setText(0, 0, "Goals");
 		table.setWidget(0, 1, editButton);
@@ -49,10 +45,12 @@ public class GoalsPanel extends VerticalPanel
 		}
 		table.setText(row,  0,  "Notes");
 		table.setText(row,  1,  "");
+		table.getRowFormatter().addStyleName(row,  "subTableRow");
+		
+		// makes sure left cell holding the title flushes to the top left instead of aligning in the middle vertically
 		HTMLTable.CellFormatter formatter = table.getCellFormatter();
 		formatter.setHorizontalAlignment(row, 0, HasHorizontalAlignment.ALIGN_LEFT);
 		formatter.setVerticalAlignment(row, 0, HasVerticalAlignment.ALIGN_TOP);
-		
 		
 		this.add(table);
 		

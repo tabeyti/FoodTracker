@@ -6,6 +6,7 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -30,16 +31,38 @@ public class FoodTracker implements EntryPoint
 	 */
 	public void onModuleLoad() 
 	{
+		LoginBox lb = new LoginBox(this);
+		lb.setStyleName("loginBox");
+		lb.getElement().getStyle().setMarginLeft(10, Unit.PX);
+		lb.getElement().getStyle().setMarginTop(10, Unit.PX);
+		
+		VerticalPanel dlp = new VerticalPanel();
+		dlp.setBorderWidth(1);
+		dlp.setWidth("100%");
+		dlp.setHeight("100%");
+		dlp.add(lb);
+				
+		RootLayoutPanel.get().add(dlp);
+		
+	} // end onModuleLoad()
+	
+	
+	public void loadApp()
+	{
+		RootLayoutPanel.get().clear();
+		
 		mainPanel = new DockLayoutPanel(Unit.PX);
+		mainPanel.setStyleName("mainPanel");
 		
 		// individual views
 		dayEntryPanel = new DayEntryPanel();
-		dayEntryPanel.setWidth("100%");
+//		dayEntryPanel.setWidth("100%");
 		dayEntryPanel.setStyleName("tab");
 		foodListPanel = new FoodListPanel();
-		foodListPanel.setWidth("100%");
+//		foodListPanel.setWidth("100%");
 		foodListPanel.setStyleName("tab");
 		graphPanel = new GraphView();
+		graphPanel.setWidth("100%");
 		graphPanel.setStyleName("tab");
 		
 		tabPanel = new TabLayoutPanel(30, Unit.PX);
@@ -47,14 +70,14 @@ public class FoodTracker implements EntryPoint
 		tabPanel.add(foodListPanel, "Food List");
 		tabPanel.add(graphPanel, "Plots");
 		
-		HorizontalPanel leftBar = new HorizontalPanel();
-		leftBar.setStyleName("pageColumns");
-		HorizontalPanel rightBar = new HorizontalPanel();
-		rightBar.setStyleName("pageColumns");
+		HorizontalPanel bannerBar = new HorizontalPanel();
+		bannerBar.setStyleName("banner");
+		Label title = new Label("Health Tracker");
+		title.setStyleName("bannerText");
+		bannerBar.add(title);
 		
-		mainPanel.addWest(leftBar, 100);
-		mainPanel.addEast(rightBar, 100);
-		mainPanel.addNorth(new VerticalPanel(),  50);
+		
+		mainPanel.addNorth(bannerBar,  50);
 		mainPanel.add(tabPanel);
 				
 		RootLayoutPanel.get().add(mainPanel);
@@ -72,7 +95,6 @@ public class FoodTracker implements EntryPoint
 			}
 
 		});
-		
-	} // end onModuleLoad()
+	}
 	
 } // end class FoodTracker
